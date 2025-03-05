@@ -1,6 +1,15 @@
 (async () => {
   let src = chrome.runtime.getURL("config.js");
   const { jiraConfig } = await import(src);
+
+  // Enable/disable this feature in `config`.
+  if (
+    jiraConfig.hasOwnProperty('enable_drupal_org_enhancements')
+    && jiraConfig.enable_drupal_org_enhancements === false
+  ) {
+    return;
+  }
+
   src = chrome.runtime.getURL("common.js");
   const { utils } = await import(src);
 
